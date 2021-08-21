@@ -41,6 +41,8 @@ function NavbarComponent(){
 
     function logout() {
         console.log('Logging you out!');
+        state.authUser = null;
+        router.navigate('/login');
     }
 
     this.render = function() {

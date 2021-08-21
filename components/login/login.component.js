@@ -64,7 +64,13 @@ function LoginComponent(){
                     updateErrorMessage(payload.message);
                 } else {
                     state.authUser = payload;
-                    router.navigate('/dashboard');
+                    if (state.authUser.faculty === true) {
+                        router.navigate('/faculty-dashboard');
+                    }
+                    else{
+                        router.navigate('/student-dashboard');
+                    }
+                    
                 }
             })
             .catch(err => console.error(err));

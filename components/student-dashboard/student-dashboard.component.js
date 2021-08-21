@@ -2,8 +2,8 @@ import { ViewComponent } from '../view.component.js';
 import state from '../../util/state.js';
 import router from '../../app.js';
 
-DashboardComponent.prototype = new ViewComponent('dashboard');
-function DashboardComponent() {
+StudentDashboardComponent.prototype = new ViewComponent('student-dashboard');
+function StudentDashboardComponent() {
 
     let welcomeUserElement;
 
@@ -18,13 +18,13 @@ function DashboardComponent() {
 
         let currentUsername = state.authUser.username;
 
-        DashboardComponent.prototype.injectStylesheet();
-        DashboardComponent.prototype.injectTemplate(() => {
+        StudentDashboardComponent.prototype.injectStylesheet();
+        StudentDashboardComponent.prototype.injectTemplate(() => {
 
             welcomeUserElement = document.getElementById('welcome-user');
             welcomeUserElement.innerText = currentUsername;
 
-            window.history.pushState('dashboard', 'Dashboard', '/dashboard');
+            window.history.pushState('student-dashboard', 'Student Dashboard', '/student-dashboard');
 
         });
 
@@ -32,4 +32,4 @@ function DashboardComponent() {
 
 }
 
-export default new DashboardComponent();
+export default new StudentDashboardComponent();
