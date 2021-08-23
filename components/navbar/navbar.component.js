@@ -1,4 +1,5 @@
 import router from "../../app.js"
+import state from "../../util/state.js";
 
 const NAVBAR_ELEMENT = document.getElementById('navbar');
 

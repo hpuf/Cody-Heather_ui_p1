@@ -35,4 +35,6 @@ function FacultyDashboardComponent() {
 
 }
 
+
+
 export default new FacultyDashboardComponent();
