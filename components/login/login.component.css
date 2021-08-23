@@ -18,3 +18,9 @@
 div > input {
     margin-bottom: .6rem;
 }
+
+a.button:hover{
+    color: #4A1266;
+    background-color: #FFD93D;
+    border-color: #FFD93D;
+}

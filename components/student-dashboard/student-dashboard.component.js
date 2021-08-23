@@ -15,6 +15,9 @@ function StudentDashboardComponent() {
             router.navigate('/login');
             return;
         }
+        if(state.authUser.faculty === true) {
+            router.navigate('/faculty-dashboard');
+        }
 
         let currentUsername = state.authUser.username;
 
