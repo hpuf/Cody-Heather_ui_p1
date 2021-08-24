@@ -53,11 +53,11 @@ function LoginComponent(){
             headers: {
                 'Content-Type': 'application/json',
             },
+            credentials: "include",
             body: JSON.stringify(credentials)
         })
             .then(resp => {
                 status = resp.status;
-                state.sessionId = resp.headers.get('Authorization')
                 return resp.json();
             })
             .then(payload => {
