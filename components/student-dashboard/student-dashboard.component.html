@@ -9,9 +9,37 @@
       <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</button>
     </div>
     <div class="tab-content" id="v-pills-tabContent">
-      <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">test1</div>
-      <div class="tab-pane fade" id="v-pills-enroll" role="tabpanel" aria-labelledby="v-pills-enroll-tab">test2</div>
-      <div class="tab-pane fade" id="v-pills-viewo" role="tabpanel" aria-labelledby="v-pills-viewo-tab">test3</div>
-      <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">test4</div>
+      <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+        test1
+      </div>
+
+      <div class="tab-pane fade" id="v-pills-enroll" role="tabpanel" aria-labelledby="v-pills-enroll-tab">
+        <div class="form-add-course">
+          <h1 class="h3 mb-3 fw-normal">Type in the Course Abbreviation of the course you would like to enroll in.</h1>
+  
+          <div id="abv-container" class="form-floating">
+              <input type="abv" class="form-control" id="enroll-form-abv" placeholder="Course Abbreviation">
+              <label for="enroll-form-abv">Course Abbreviation</label>
+          </div>
+        
+          <br/>
+          <button id="enroll-course-form-button" class="w-100 btn btn-lg btn-primary" type="submit">Enroll Course!</button>
+          
+          <div id="add-error-msg-container">
+            <p hidden id="add-error-msg" class="alert alert-danger"></p>
+          </div>
+  
+      </div>
+  
+      </div>
+
+      <div class="tab-pane fade" id="v-pills-viewo" role="tabpanel" aria-labelledby="v-pills-viewo-tab">
+        test3
+      </div>
+
+      <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+        test4
+      </div>
+
     </div>
   </div>
