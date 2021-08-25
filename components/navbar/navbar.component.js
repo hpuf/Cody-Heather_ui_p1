@@ -49,11 +49,11 @@ function NavbarComponent(){
     this.render = function() {
         // Can reference to this function because it is within scope.
         injectStylesheet();
+
         injectTemplate( () => {
             document.getElementById('logout').addEventListener('click', logout);
             document.getElementById('nav-to-login').addEventListener('click', navigateToView);
             document.getElementById('nav-to-register').addEventListener('click', navigateToView);
-            document.getElementById('nav-to-dashboard').addEventListener('click', navigateToView);
         });
     }
 

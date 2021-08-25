@@ -14,8 +14,7 @@ function StudentDashboardComponent() {
         if (!state.authUser) {
             router.navigate('/login');
             return;
-        }
-        if(state.authUser.faculty === true) {
+        }else if(state.authUser.faculty === true) {
             router.navigate('/faculty-dashboard');
         }
 
