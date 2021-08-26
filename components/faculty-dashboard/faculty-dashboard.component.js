@@ -8,6 +8,10 @@ function FacultyDashboardComponent() {
 
     let welcomeUserElement;
 
+    // Element for course table
+    let courseTableBody;
+    let viewButtonElement;
+
     // Elements for course addition
     let abvFieldElement;
     let courseNameFieldElement;
@@ -131,33 +135,66 @@ function FacultyDashboardComponent() {
     // Elements for fetching courses
 
 
-    // function populateCourses(){
+    function getCourses(){
 
-    //     fetch(`${env.apiUrl}/faculty/courses`, {
-    //         method: 'GET',
-    //         headers: {
-    //             'Content-Type': 'application/json',     //include principal here
-    //         }
-    //     })
-    //         .then(resp => {
-    //             status = resp.status;
-    //             return resp.json();
-    //         })
-    //         .then(payload => {
-    //             if (status >= 400 && status < 500) {
-    //                 updateErrorMessage(payload.message);
-    //             }else if (status >= 500) {
-    //                 updateErrorMessage('The server encountered an error, please try again later.');
-    //             }
-    //         })
-    //         .catch(err => console.error(err));
+        fetch(`${env.apiUrl}/faculty/courses`, {
+            method: 'GET',
+            headers: {
+                'Authorization': state.token,     
+            }
+        })
+            .then(resp => {
+                status = resp.status;
+                return resp.json();
+            })
+            .then(payload => {
+                populateCourseTable(payload);
+                if (status >= 400 && status < 500) {
+                    updateErrorMessage(payload.message);
+                }else if (status >= 500) {
+                    updateErrorMessage('The server encountered an error when retrieving the courses.');
+                }
+            })
+            .catch(err => console.error(err));
 
-    // }
+    }
+
+    // Populating the course table
+    function populateCourseTable(courseArray){
+
+        let allRows = ``;
+
+        for(let course of courseArray)
+        {
+            let open = formatDate(course.courseOpenDate);
+            let close = formatDate(course.courseCloseDate);
+
+            let rowTemplate =`
+        <tr>
+            <td>${course.courseAbbreviation}</td>
+            <td>${course.courseName}</td>
+            <td>${course.professorName}</td>
+            <td>${course.courseDetail}</td>
+            <td>${open}</td>
+            <td>${close}</td>
+            <td>${course.slotsTaken}/${course.courseCapacity}</td>
+        </tr>
+        `;
+            allRows += rowTemplate;
+        }
+
+        courseTableBody.innerHTML = allRows;
+
+    }
+
+    function formatDate(date){
+
+        return date.toString().replace(/,/g, '/');
+
+    }
 
 
     this.render = function() {
-
-        console.log(state);
 
         if (!state.authUser) {
             router.navigate('/login');
@@ -172,6 +209,7 @@ function FacultyDashboardComponent() {
             welcomeUserElement = document.getElementById('welcome-user');
             welcomeUserElement.innerText = currentUsername;
 
+            //Add course elements
             abvFieldElement = document.getElementById('add-form-abv');
             courseNameFieldElement = document.getElementById('add-form-course-name');;
             courseDetailsFieldElement = document.getElementById('add-form-details');
@@ -191,6 +229,12 @@ function FacultyDashboardComponent() {
             courseCapacityFieldElement.addEventListener('keyup', updateCourseCap);
 
             addButtonElement.addEventListener('click', addCourse);
+
+
+            // View courses elements
+            courseTableBody = document.getElementById('course-table-body');
+            viewButtonElement = document.getElementById('v-pills-view-tab');
+            viewButtonElement.addEventListener('click', getCourses);
 
             window.history.pushState('faculty-dashboard', 'Faculty Dashboard', '/faculty-dashboard');
 
