@@ -8,6 +8,7 @@ function FacultyDashboardComponent() {
 
     let welcomeUserElement;
 
+    // Elements for course addition
     let abvFieldElement;
     let courseNameFieldElement;
     let courseDetailsFieldElement;
@@ -17,6 +18,7 @@ function FacultyDashboardComponent() {
 
     let addButtonElement;
     let addErrorMessageElement;
+    let addSuccessMessageElement;
 
     let abv = '';
     let courseName = '';
@@ -65,17 +67,28 @@ function FacultyDashboardComponent() {
         }
     }
 
+    function updateSuccessMessage(successMessage){
+        if(successMessage) {
+            addSuccessMessageElement.removeAttribute('hidden');
+            addSuccessMessageElement.innerText = successMessage;
+        }else{
+            addSuccessMessageElement.setAttribute('hidden', 'true');
+            addSuccessMessageElement.innerText = '';
+        }
+    }
+
 
     function addCourse() {
 
         if (!abv || !courseName|| !courseDetails|| !courseOpen || !courseClose || !courseCap) {
             updateErrorMessage('Please fill out all fields');
+            updateSuccessMessage('');
             return;
         } else {
             updateErrorMessage('');
         }
 
-        let courseInfo = {
+        let addCourseInfo = {
             courseName: courseName,
             courseAbbreviation: abv,
             courseDetail: courseDetails,
@@ -90,23 +103,57 @@ function FacultyDashboardComponent() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': state.token
             },
-            body: JSON.stringify(courseInfo) // BECAUSE I'D KNOW >:(
+            body: JSON.stringify(addCourseInfo) 
         })
             .then(resp => {
                 status = resp.status;
+                updateSuccessMessage('Course added!');
+                updateErrorMessage('');
                 return resp.json();
             })
             .then(payload => {
                 if (status >= 400 && status < 500) {
                     updateErrorMessage(payload.message);
+                    updateSuccessMessage('');
                 }else if (status >= 500) {
                     updateErrorMessage('The server encountered an error, please try again later.');
+                    updateSuccessMessage('');
                 }
             })
             .catch(err => console.error(err));
 
     }
+
+
+
+    // Elements for fetching courses
+
+
+    // function populateCourses(){
+
+    //     fetch(`${env.apiUrl}/faculty/courses`, {
+    //         method: 'GET',
+    //         headers: {
+    //             'Content-Type': 'application/json',     //include principal here
+    //         }
+    //     })
+    //         .then(resp => {
+    //             status = resp.status;
+    //             return resp.json();
+    //         })
+    //         .then(payload => {
+    //             if (status >= 400 && status < 500) {
+    //                 updateErrorMessage(payload.message);
+    //             }else if (status >= 500) {
+    //                 updateErrorMessage('The server encountered an error, please try again later.');
+    //             }
+    //         })
+    //         .catch(err => console.error(err));
+
+    // }
+
 
     this.render = function() {
 
@@ -134,12 +181,13 @@ function FacultyDashboardComponent() {
 
             addButtonElement = document.getElementById('add-course-form-button');;
             addErrorMessageElement = document.getElementById('add-error-msg');
+            addSuccessMessageElement = document.getElementById('add-success-msg');
 
             abvFieldElement.addEventListener('keyup', updateAbv);
             courseNameFieldElement.addEventListener('keyup', updateCourseName);
             courseDetailsFieldElement.addEventListener('keyup', updateCourseDetails);
-            courseOpenDateFieldElement.addEventListener('mousedown', updateCourseOpen);
-            courseCloseDateFieldElement.addEventListener('mousedown', updateCourseClose);
+            courseOpenDateFieldElement.addEventListener('blur', updateCourseOpen);
+            courseCloseDateFieldElement.addEventListener('blur', updateCourseClose);
             courseCapacityFieldElement.addEventListener('keyup', updateCourseCap);
 
             addButtonElement.addEventListener('click', addCourse);

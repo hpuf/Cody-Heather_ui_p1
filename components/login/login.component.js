@@ -57,6 +57,9 @@ function LoginComponent(){
         })
             .then(resp => {
                 status = resp.status;
+                let token = resp.headers.get('Authorization');
+                state.token = token;
+                console.log(state.token);
                 return resp.json();
             })
             .then(payload => {
