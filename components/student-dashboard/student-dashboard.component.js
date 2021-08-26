@@ -56,7 +56,7 @@ function StudentDashboardComponent() {
             .then(resp => {
                 status = resp.status;
                 console.log(resp);
-                return resp().json;
+                return resp;
             })
             .then(payload => {
                 if (status >= 400 && status < 500) {
