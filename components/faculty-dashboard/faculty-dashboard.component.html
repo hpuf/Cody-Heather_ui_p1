@@ -19,7 +19,7 @@
           <h1 class="h3 mb-3 fw-normal">Add a new course!</h1>
   
           <div id="abv-container" class="form-floating">
-              <input type="abv" class="form-control" id="add-form-abv" placeholder="Course Abbreviation">
+              <input type="text" class="form-control" id="add-form-abv" placeholder="Course Abbreviation">
               <label for="add-form-abv">Course Abbreviation</label>
           </div>
   
@@ -64,11 +64,77 @@
       </div>
 
       <div class="tab-pane fade" id="v-pills-edit" role="tabpanel" aria-labelledby="v-pills-edit-tab">
-        this is where you'll edit a course :|
+        <div class="form-edit-course">
+          <h1 class="h3 mb-3 fw-normal">Edit a new course!</h1>
+
+          <div id="editing-course-abv-container" class="form-floating">
+            <input type="text" class="form-control" id="editing-course-form-abv" placeholder="Abbreviation of Course to Edit">
+            <label for="editing-course-form-abv">Course Abbreviation</label>
+          </div>
+  
+          <div id="edit-abv-container" class="form-floating">
+              <input type="text" class="form-control" id="edit-form-abv" placeholder="New Course Abbreviation">
+              <label for="edit-form-abv">New Course Abbreviation</label>
+          </div>
+  
+          <div id="edit-course-name-container" class="form-floating">
+              <input type="course-name" class="form-control" id="edit-form-course-name" placeholder="New Course Name">
+              <label for="edit-form-course-name">New Course Name</label>
+          </div>
+  
+          <div id="edit-details-container" class="form-floating">
+              <input type="details" class="form-control" id="edit-form-details" placeholder="New Details">
+              <label for="edit-form-course-details">New Course Details</label>
+          </div>
+  
+          <div id="edit-open-date-container" class="form-floating">
+              <input type="date" class="form-control" id="edit-form-open-date" placeholder="New Open Date">
+              <label for="edit-form-open-date">New Course Open Date</label>
+          </div>
+  
+          <div id="edit-close-date-container" class="form-floating">
+              <input type="date" class="form-control" id="edit-form-close-date" placeholder="New Close Date">
+              <label for="edit-form-close-date">New Course Close Date</label>
+          </div>
+
+          <div id="edit-capacity-container" class="form-floating">
+            <input type="number" class="form-control" id="edit-form-capacity" placeholder="New Capacity">
+            <label for="edit-form-capacity">New Course Capacity</label>
+          </div>
+          
+          <br/>
+          <button id="edit-course-form-button" class="w-100 btn btn-lg btn-primary" type="submit">Edit Course!</button>
+          
+          <br/>
+          <div id="edit-error-msg-container">
+            <p hidden id="edit-error-msg" class="alert alert-danger"></p>
+          </div>
+          <div id="edit-success-msg-container">
+            <p hidden id="edit-success-msg" class="alert alert-success"></p>
+          </div>
+        </div>
       </div>
 
       <div class="tab-pane fade" id="v-pills-delete" role="tabpanel" aria-labelledby="v-pills-delete-tab">
-        this is where you'll remove a course >:(
+        <div class="form-remove-course">
+          <h1 class="h3 mb-3 fw-normal">Remove a Course!</h1>
+  
+          <div id="remove-abv-container" class="form-floating">
+              <input type="text" class="form-control" id="remove-form-abv" placeholder="Course Abbreviation">
+              <label for="remove-form-abv">Course Abbreviation</label>
+          </div>
+          <br/>
+          <button id="remove-course-form-button" class="w-100 btn btn-lg btn-primary" type="submit">Remove Course</button>
+          
+          <br/>
+          <div id="remove-error-msg-container">
+            <p hidden id="remove-error-msg" class="alert alert-danger"></p>
+          </div>
+          <div id="remove-success-msg-container">
+            <p hidden id="remove-success-msg" class="alert alert-success"></p>
+          </div>
+        
+        </div>
       </div>
 
       <div class="tab-pane fade" id="v-pills-view" role="tabpanel" aria-labelledby="v-pills-view-tab">
