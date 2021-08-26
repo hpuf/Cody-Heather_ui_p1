@@ -113,8 +113,7 @@ function FacultyDashboardComponent() {
         })
             .then(resp => {
                 status = resp.status;
-                updateSuccessMessage('Course added!');
-                updateErrorMessage('');
+                
                 return resp.json();
             })
             .then(payload => {
@@ -124,6 +123,9 @@ function FacultyDashboardComponent() {
                 }else if (status >= 500) {
                     updateErrorMessage('The server encountered an error, please try again later.');
                     updateSuccessMessage('');
+                }else{
+                    updateSuccessMessage('Course added!');
+                    updateErrorMessage('');
                 }
             })
             .catch(err => console.error(err));

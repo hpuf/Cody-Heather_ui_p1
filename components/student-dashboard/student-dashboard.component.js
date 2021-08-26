@@ -31,7 +31,8 @@ function StudentDashboardComponent() {
         }
     }
 
-         function enroll(){
+    function enroll() {
+
         if (!abv) {
             updateErrorMessage('Please fill out all fields');
             return;
@@ -39,7 +40,7 @@ function StudentDashboardComponent() {
             updateErrorMessage('');
         }
 
-        let enrollInfo ={
+        let enrollInfo = {
             courseAbbreviation: abv
         };
 
@@ -54,9 +55,9 @@ function StudentDashboardComponent() {
             body: JSON.stringify(enrollInfo)
         })
             .then(resp => {
-                status = resp.status;
                 console.log(resp);
-                return resp().json;
+                status = resp.status;
+                return resp;
             })
             .then(payload => {
                 if (status >= 400 && status < 500) {
