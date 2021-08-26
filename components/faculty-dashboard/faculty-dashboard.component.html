@@ -1,16 +1,92 @@
-<h1>Welcome, <span id="welcome-user"></span></h1>
+<h1 class="welcome">Welcome, <span id="welcome-user"></span></h1>
 
 <div class="d-flex align-items-start">
     <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
       <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</button>
-      <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</button>
-      <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</button>
-      <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</button>
+      <button class="nav-link" id="v-pills-add-tab" data-bs-toggle="pill" data-bs-target="#v-pills-add" type="button" role="tab" aria-controls="v-pills-add" aria-selected="false">Add Course</button>
+      <button class="nav-link" id="v-pills-edit-tab" data-bs-toggle="pill" data-bs-target="#v-pills-edit" type="button" role="tab" aria-controls="v-pills-edit" aria-selected="false">Edit Course</button>
+      <button class="nav-link" id="v-pills-delete-tab" data-bs-toggle="pill" data-bs-target="#v-pills-delete" type="button" role="tab" aria-controls="v-pills-delete" aria-selected="false">Delete Course</button>
+      <button class="nav-link" id="v-pills-view-tab" data-bs-toggle="pill" data-bs-target="#v-pills-view" type="button" role="tab" aria-controls="v-pills-view" aria-selected="false">View Courses</button>
     </div>
     <div class="tab-content" id="v-pills-tabContent">
-      <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">...</div>
-      <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">...</div>
-      <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
-      <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
+
+      <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+        sup nerd
+      </div>
+
+      <div class="tab-pane fade" id="v-pills-add" role="tabpanel" aria-labelledby="v-pills-add-tab">
+        <div class="form-add-course">
+          <h1 class="h3 mb-3 fw-normal">Add a new course!</h1>
+  
+          <div id="abv-container" class="form-floating">
+              <input type="abv" class="form-control" id="add-form-abv" placeholder="Course Abbreviation">
+              <label for="add-form-abv">Course Abbreviation</label>
+          </div>
+  
+          <div id="course-name-container" class="form-floating">
+              <input type="course-name" class="form-control" id="add-form-course-name" placeholder="Course Name">
+              <label for="add-form-course-name">Course Name</label>
+          </div>
+  
+          <div id="details-container" class="form-floating">
+              <input type="details" class="form-control" id="add-form-details" placeholder="Details">
+              <label for="add-form-course-details">Course Details</label>
+          </div>
+  
+          <div id="open-date-container" class="form-floating">
+              <input type="date" class="form-control" id="add-form-open-date" placeholder="Open Date">
+              <label for="add-form-open-date">Course Open Date</label>
+          </div>
+  
+          <div id="close-date-container" class="form-floating">
+              <input type="date" class="form-control" id="add-form-close-date" placeholder="Close Date">
+              <label for="add-form-close-date">Course Close Date</label>
+          </div>
+
+          <div id="capacity-container" class="form-floating">
+            <input type="number" class="form-control" id="add-form-capacity" placeholder="Capacity">
+            <label for="add-form-capacity">Course Capacity</label>
+          </div>
+          
+          <br/>
+          <button id="add-course-form-button" class="w-100 btn btn-lg btn-primary" type="submit">Add Course!</button>
+          
+          <div id="add-error-msg-container">
+            <p hidden id="add-error-msg" class="alert alert-danger"></p>
+          </div>
+          <div id="add-success-msg-container">
+            <p hidden id="add-success-msg" class="alert alert-success"></p>
+          </div>
+  
+      </div>
+  
+      </div>
+
+      <div class="tab-pane fade" id="v-pills-edit" role="tabpanel" aria-labelledby="v-pills-edit-tab">
+        this is where you'll edit a course :|
+      </div>
+
+      <div class="tab-pane fade" id="v-pills-delete" role="tabpanel" aria-labelledby="v-pills-delete-tab">
+        this is where you'll remove a course >:(
+      </div>
+
+      <div class="tab-pane fade" id="v-pills-view" role="tabpanel" aria-labelledby="v-pills-view-tab">
+        <table class="table" id="course-table">
+          <thead>
+          <th>Course Abv</th>
+          <th>Course Name</th>
+          <th>Professor</th>
+          <th>Details</th>
+          <th>Open Date</th>
+          <th>Close Date</th>
+          <th>Slots</th>
+          </thead>
+          <tbody id="course-table-body">
+
+          </tbody>
+          </table>
+
+      </div>
+
     </div>
   </div>

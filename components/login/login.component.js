@@ -48,7 +48,7 @@ function LoginComponent(){
 
         let status = 0;
 
-        fetch(`${env.apiUrl}/auth`, {
+       fetch(`${env.apiUrl}/auth`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -57,6 +57,9 @@ function LoginComponent(){
         })
             .then(resp => {
                 status = resp.status;
+                let token = resp.headers.get('Authorization');
+                state.token = token;
+                console.log(state.token);
                 return resp.json();
             })
             .then(payload => {
