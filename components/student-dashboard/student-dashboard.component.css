@@ -1,6 +1,24 @@
 .welcome {
     text-align: center;
+    color: #FFD93D;
+    background-color: #4A1266;
+    border: 3px groove #CECDCF ;
 }
+
+.nav-pills {
+    display:flex;
+    justify-content: left;
+}
+
+.tab-pane {
+    width: 65rem;
+    height: 45rem;
+    padding: 0.5rem;
+    border: 3px groove #CECDCF ;
+    display: inline;
+    background-color: white;
+}
+
 .nav-link {
     color: #FFD93D!important;
     background-color: #4A1266!important;
