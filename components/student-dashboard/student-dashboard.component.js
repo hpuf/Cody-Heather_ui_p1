@@ -9,10 +9,13 @@ function StudentDashboardComponent() {
 
     let welcomeUserElement;
 
-    let abvFieldElement;
+    let enrollAbvFieldElement;
+    let withdrawAbvFieldElement;
 
     let enrollButtonElement;
     let enrollErrorMessageElement;
+    let withdrawButtonElement;
+    let withdrawErrorMessageElement;
 
     let abv = '';
 
@@ -21,7 +24,7 @@ function StudentDashboardComponent() {
         console.log(abv);
     }
 
-    function updateErrorMessage(errorMessage) {
+    function updateEnrollErrorMessage(errorMessage) {
         if (errorMessage) {
             enrollErrorMessageElement.removeAttribute('hidden');
             enrollErrorMessageElement.innerText = errorMessage;
@@ -31,13 +34,23 @@ function StudentDashboardComponent() {
         }
     }
 
+    function updateWithdrawErrorMessage(errorMessage) {
+        if (errorMessage) {
+            withdrawErrorMessageElement.removeAttribute('hidden');
+            withdrawErrorMessageElement.innerText = errorMessage;
+        } else {
+            withdrawErrorMessageElement.setAttribute('hidden', 'true');
+            withdrawErrorMessageElement.innerText = '';
+        }
+    }
+
     function enroll() {
 
         if (!abv) {
-            updateErrorMessage('Please fill out all fields');
+            updateEnrollErrorMessage('Please fill out all fields');
             return;
         } else {
-            updateErrorMessage('');
+            updateEnrollErrorMessage('');
         }
 
         let enrollInfo = {
@@ -61,9 +74,48 @@ function StudentDashboardComponent() {
             })
             .then(payload => {
                 if (status >= 400 && status < 500) {
-                    updateErrorMessage(payload.message);
+                    updateEnrollErrorMessage(payload.message);
                 }else if (status >= 500) {
-                    updateErrorMessage('The server encountered an error, please try again later.');
+                    updateEnrollErrorMessage('The server encountered an error, please try again later.');
+                }
+            })
+            .catch(err => console.error(err));
+
+    }
+
+    function withdraw() {
+
+        if (!abv) {
+            updateWithdrawErrorMessage('Please fill out all fields');
+            return;
+        } else {
+            updateWithdrawErrorMessage('');
+        }
+
+        let withdrawInfo = {
+            courseAbbreviation: abv
+        };
+
+        let status = 0;
+
+        fetch(`${env.apiUrl}/student/courses`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': state.token
+            },
+            body: JSON.stringify(withdrawInfo)
+        })
+            .then(resp => {
+                console.log(resp);
+                status = resp.status;
+                return resp;
+            })
+            .then(payload => {
+                if (status >= 400 && status < 500) {
+                    updateWithdrawErrorMessage(payload.message);
+                }else if (status >= 500) {
+                    updateWithdrawErrorMessage('The server encountered an error, please try again later.');
                 }
             })
             .catch(err => console.error(err));
@@ -89,14 +141,20 @@ function StudentDashboardComponent() {
             welcomeUserElement = document.getElementById('welcome-user');
             welcomeUserElement.innerText = currentUsername;
 
-            abvFieldElement = document.getElementById('enroll-form-abv');
+            enrollAbvFieldElement = document.getElementById('enroll-form-abv');
+            withdrawAbvFieldElement = document.getElementById('withdraw-form-abv');
+
             enrollErrorMessageElement = document.getElementById('enroll-error-msg');
+            withdrawErrorMessageElement = document.getElementById('withdraw-error-msg');
 
             enrollButtonElement = document.getElementById('enroll-course-form-button');
+            withdrawButtonElement = document.getElementById('withdraw-course-form-button');
 
-            abvFieldElement.addEventListener('keyup', updateAbv);
+            enrollAbvFieldElement.addEventListener('keyup', updateAbv);
+            withdrawAbvFieldElement.addEventListener('keyup', updateAbv);
 
             enrollButtonElement.addEventListener('click', enroll);
+            withdrawButtonElement.addEventListener('click', withdraw);
 
             window.history.pushState('student-dashboard', 'Student Dashboard', '/student-dashboard');
 
