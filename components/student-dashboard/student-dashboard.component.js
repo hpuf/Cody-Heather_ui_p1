@@ -9,15 +9,23 @@ function StudentDashboardComponent() {
 
     let welcomeUserElement;
 
+    //input fields
     let enrollAbvFieldElement;
     let withdrawAbvFieldElement;
 
-    let enrollButtonElement;
+    //Messages
     let enrollErrorMessageElement;
-    let withdrawButtonElement;
     let withdrawErrorMessageElement;
+    let enrollSuccessMessageElement;
+    let withdrawSuccessMessageElement;
+
+    //tables
     let openCourseTableBody;
     let scheduleTableBody;
+
+    //buttons
+    let enrollButtonElement;
+    let withdrawButtonElement;
     let viewButtonElement;
     let scheduleButtonElement;
 
@@ -38,6 +46,17 @@ function StudentDashboardComponent() {
         }
     }
 
+    function enrollSuccessMessage(successMessage){
+        if(successMessage) {
+            enrollSuccessMessageElement.removeAttribute('hidden');
+            enrollSuccessMessageElement.innerText = successMessage;
+        }else{
+            enrollSuccessMessageElement.setAttribute('hidden', 'true');
+            enrollSuccessMessageElement.innerText = '';
+        }
+    }
+
+
     function updateWithdrawErrorMessage(errorMessage) {
         if (errorMessage) {
             withdrawErrorMessageElement.removeAttribute('hidden');
@@ -48,10 +67,21 @@ function StudentDashboardComponent() {
         }
     }
 
+    function withdrawSuccessMessage(successMessage){
+        if(successMessage) {
+            withdrawSuccessMessageElement.removeAttribute('hidden');
+            withdrawSuccessMessageElement.innerText = successMessage;
+        }else{
+            withdrawSuccessMessageElement.setAttribute('hidden', 'true');
+            withdrawSuccessMessageElement.innerText = '';
+        }
+    }
+
     function enroll() {
 
         if (!abv) {
             updateEnrollErrorMessage('Please fill out all fields');
+            enrollSuccessMessage('');
             return;
         } else {
             updateEnrollErrorMessage('');
@@ -72,15 +102,23 @@ function StudentDashboardComponent() {
             body: JSON.stringify(enrollInfo)
         })
             .then(resp => {
-                console.log(resp);
                 status = resp.status;
-                return resp;
+                console.log(status);
+                console.log(resp);
+                return resp.json();
             })
             .then(payload => {
                 if (status >= 400 && status < 500) {
+                    console.log('Anybody home?');
                     updateEnrollErrorMessage(payload.message);
+                    enrollSuccessMessage('');
+                    //console.log(payload.message);
                 }else if (status >= 500) {
                     updateEnrollErrorMessage('The server encountered an error, please try again later.');
+                    enrollSuccessMessage('');
+                }else{
+                    enrollSuccessMessage(payload.message);
+                    updateEnrollErrorMessage('');
                 }
             })
             .catch(err => console.error(err));
@@ -91,6 +129,7 @@ function StudentDashboardComponent() {
 
         if (!abv) {
             updateWithdrawErrorMessage('Please fill out all fields');
+            withdrawSuccessMessage('');
             return;
         } else {
             updateWithdrawErrorMessage('');
@@ -111,15 +150,20 @@ function StudentDashboardComponent() {
             body: JSON.stringify(withdrawInfo)
         })
             .then(resp => {
-                console.log(resp);
+                console.log(resp.message);
                 status = resp.status;
-                return resp;
+                return resp.json();
             })
             .then(payload => {
                 if (status >= 400 && status < 500) {
                     updateWithdrawErrorMessage(payload.message);
+                    withdrawSuccessMessage('');
                 }else if (status >= 500) {
                     updateWithdrawErrorMessage('The server encountered an error, please try again later.');
+                    withdrawSuccessMessage('');
+                }else{
+                    withdrawSuccessMessage(payload.message);
+                    updateWithdrawErrorMessage('');
                 }
             })
             .catch(err => console.error(err));
@@ -243,7 +287,9 @@ function StudentDashboardComponent() {
             withdrawAbvFieldElement = document.getElementById('withdraw-form-abv');
 
             enrollErrorMessageElement = document.getElementById('enroll-error-msg');
+            enrollSuccessMessageElement = document.getElementById('enroll-success-msg');
             withdrawErrorMessageElement = document.getElementById('withdraw-error-msg');
+            withdrawSuccessMessageElement = document.getElementById('withdraw-success-msg');
 
             enrollButtonElement = document.getElementById('enroll-course-form-button');
             withdrawButtonElement = document.getElementById('withdraw-course-form-button');
