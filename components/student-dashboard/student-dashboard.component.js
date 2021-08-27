@@ -16,6 +16,8 @@ function StudentDashboardComponent() {
     let enrollErrorMessageElement;
     let withdrawButtonElement;
     let withdrawErrorMessageElement;
+    let openCourseTableBody;
+    let viewButtonElement;
 
     let abv = '';
 
@@ -122,6 +124,55 @@ function StudentDashboardComponent() {
 
     }
 
+        
+
+//View open courses
+        function getOpenCourses(){
+
+            fetch(`${env.apiUrl}/student/courses?action=view`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': state.token,     
+                }
+            })
+                .then(resp => {
+                    status = resp.status;
+                    return resp.json();
+                })
+                .then(payload => {
+                    populateOpenCourseTable(payload);
+                    if (status >= 400 && status < 500) {
+                        updateErrorMessage(payload.message);
+                    }else if (status >= 500) {
+                        updateErrorMessage('The server encountered an error when retrieving the courses.');
+                    }
+                })
+                .catch(err => console.error(err));
+    
+        }
+    
+        function populateOpenCourseTable(openCourseArray){
+    
+            let allRows = ``;
+    
+            for(let course of openCourseArray) {
+    
+                let rowTemplate =`
+            <tr>
+                <td>${course.courseAbbreviation}</td>
+                <td>${course.courseName}</td>
+                <td>${course.professorName}</td>
+                <td>${course.courseDetail}</td>
+                <td>${course.slotsTaken}/${course.courseCapacity}</td>
+            </tr>
+            `;
+                allRows += rowTemplate;
+            }
+    
+            openCourseTableBody.innerHTML = allRows;
+    
+        }
+
     this.render = function() {
 
         console.log(state);
@@ -155,6 +206,12 @@ function StudentDashboardComponent() {
 
             enrollButtonElement.addEventListener('click', enroll);
             withdrawButtonElement.addEventListener('click', withdraw);
+
+            // View courses elements
+            openCourseTableBody = document.getElementById('courseopen-table-body');
+            viewButtonElement = document.getElementById('v-pills-viewo-tab');
+            viewButtonElement.addEventListener('click', getOpenCourses);
+
 
             window.history.pushState('student-dashboard', 'Student Dashboard', '/student-dashboard');
 
