@@ -7,12 +7,16 @@
 .nav-pills {
     display:flex;
     justify-content: left;
+    margin-right: 0!important;
+    margin-top: 2%!important;
 }
 
 .tab-pane {
     width: 70rem;
     height: 45rem;
-    padding-top: 0.5rem;
+    padding: 0.5rem;
+    border: 1em solid #CECDCF;
+    border-radius:2em;
     display: inline;
     background-color: white;
 }
@@ -35,6 +39,14 @@
     border-color: #4A1266!important;
 }
 
+h2 {
+    text-align: center;
+}
+
 h3 {
     text-align: center;
+}
+
+.btn{
+    margin-left:25%;
 }

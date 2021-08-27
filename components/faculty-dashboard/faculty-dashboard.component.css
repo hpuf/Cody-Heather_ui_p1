@@ -1,24 +1,22 @@
-body{
-    background-color:#AE95BB;
-}
-
 .welcome {
     text-align: center;
-    color: #FFD93D;
-    background-color: #4A1266;
-    border: 3px groove #CECDCF;
+    color:  #4A1266;
+    background-color: #FFD93D;
 }
 
 .nav-pills {
     display:flex;
     justify-content: left;
+    margin-right: 0!important;
+    margin-top: 2%!important;
 }
 
 .tab-pane {
-    width: 65rem;
+    width: 70rem;
     height: 45rem;
     padding: 0.5rem;
-    border: 3px groove #CECDCF ;
+    border: 1em solid #CECDCF;
+    border-radius:2em;
     display: inline;
     background-color: white;
 }
@@ -39,4 +37,16 @@ body{
     color: #4A1266!important;
     background-color: #FFD93D!important;
     border-color: #4A1266!important;
+}
+
+h2 {
+    text-align: center;
+}
+
+h3 {
+    text-align: center;
+}
+
+.btn{
+    margin-left:25%;
 }

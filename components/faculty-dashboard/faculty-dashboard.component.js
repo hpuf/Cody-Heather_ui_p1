@@ -378,7 +378,7 @@ function FacultyDashboardComponent() {
             .then(resp => {
                 status = resp.status;
                 console.log(status);
-                return resp;
+                return resp.json();
             })
             .then(payload => {
                 if (status >= 400 && status < 500) {
