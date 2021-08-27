@@ -187,9 +187,9 @@ function StudentDashboardComponent() {
                 console.log(payload);
                 populateScheduleTable(payload);
                 if (status >= 400 && status < 500) {
-                    updateErrorMessage(payload.message);
+                    // updateErrorMessage(payload.message);
                 }else if (status >= 500) {
-                    updateErrorMessage('The server encountered an error when retrieving the courses.');
+                    // updateErrorMessage('The server encountered an error when retrieving the courses.');
                 }
             })
             .catch(err => console.error(err));
@@ -198,21 +198,26 @@ function StudentDashboardComponent() {
 
     function populateScheduleTable(ScheduleArray){
 
-        let allRows = ``;
+        if(ScheduleArray.length > 0){
+            let allRows = ``;
 
-        for(let course of ScheduleArray) {
+            for(let course of ScheduleArray) {
 
-            let rowTemplate =`
-        <tr>
-            <td>${course.courseAbbreviation}</td>
-            <td>${course.courseName}</td>
-            <td>${course.professorName}</td>
-        </tr>
-        `;
-            allRows += rowTemplate;
+                let rowTemplate =`
+            <tr>
+                <td>${course.courseAbbreviation}</td>
+                <td>${course.courseName}</td>
+                <td>${course.professorName}</td>
+            </tr>
+            `;
+                allRows += rowTemplate;
+            }
+
+            scheduleTableBody.innerHTML = allRows;
+ 
+        }else{
+            scheduleTableBody.innerHTML = ``;
         }
-
-        scheduleTableBody.innerHTML = allRows;
 
     }
         
@@ -243,7 +248,7 @@ function StudentDashboardComponent() {
         }
     
         function populateOpenCourseTable(openCourseArray){
-    
+            
             let allRows = ``;
     
             for(let course of openCourseArray) {
@@ -308,8 +313,9 @@ function StudentDashboardComponent() {
             // View schedule elements
             scheduleTableBody = document.getElementById('schedule-table-body');
             scheduleButtonElement = document.getElementById('v-pills-home-tab');
-            scheduleButtonElement.addEventListener('click', getSchedule());
-
+            scheduleButtonElement.addEventListener('click', getSchedule);
+            
+            getSchedule();
             
 
 

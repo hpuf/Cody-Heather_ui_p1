@@ -19,6 +19,17 @@
     border-radius:2em;
     display: inline;
     background-color: white;
+    overflow:scroll;
+}
+
+.tab-pane::-webkit-scrollbar {
+      width: 1em;
+}
+ 
+
+.tab-pane::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
 }
 
 .nav-link {
