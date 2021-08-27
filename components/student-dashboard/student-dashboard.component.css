@@ -7,8 +7,6 @@
 .nav-pills {
     display:flex;
     justify-content: left;
-    margin-trim: 0;
-    margin-right: 0;
 }
 
 .tab-pane {

@@ -300,7 +300,7 @@ function FacultyDashboardComponent() {
         })
             .then(resp => {
                 status = resp.status;
-                
+                console.log(resp);
                 return resp.json();
             })
             .then(payload => {
