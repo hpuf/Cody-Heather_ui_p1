@@ -1,20 +1,20 @@
 .welcome {
     text-align: center;
-    color: #FFD93D;
-    background-color: #4A1266;
-    border: 3px groove #CECDCF ;
+    color:  #4A1266;
+    background-color: #FFD93D;
 }
 
 .nav-pills {
     display:flex;
     justify-content: left;
+    margin-trim: 0;
+    margin-right: 0;
 }
 
 .tab-pane {
-    width: 65rem;
+    width: 70rem;
     height: 45rem;
-    padding: 0.5rem;
-    border: 3px groove #CECDCF ;
+    padding-top: 0.5rem;
     display: inline;
     background-color: white;
 }
@@ -35,4 +35,8 @@
     color: #4A1266!important;
     background-color: #FFD93D!important;
     border-color: #4A1266!important;
+}
+
+h3 {
+    text-align: center;
 }

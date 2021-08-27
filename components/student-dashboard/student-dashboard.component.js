@@ -17,7 +17,9 @@ function StudentDashboardComponent() {
     let withdrawButtonElement;
     let withdrawErrorMessageElement;
     let openCourseTableBody;
+    let scheduleTableBody;
     let viewButtonElement;
+    let scheduleButtonElement;
 
     let abv = '';
 
@@ -124,6 +126,51 @@ function StudentDashboardComponent() {
 
     }
 
+    //view schedule
+    function getSchedule(){
+
+        fetch(`${env.apiUrl}/student/courses?action=schedule`, {
+            method: 'GET',
+            headers: {
+                'Authorization': state.token,     
+            }
+        })
+            .then(resp => {
+                status = resp.status;
+                return resp.json();
+            })
+            .then(payload => {
+                console.log(payload);
+                populateScheduleTable(payload);
+                if (status >= 400 && status < 500) {
+                    updateErrorMessage(payload.message);
+                }else if (status >= 500) {
+                    updateErrorMessage('The server encountered an error when retrieving the courses.');
+                }
+            })
+            .catch(err => console.error(err));
+
+    }
+
+    function populateScheduleTable(ScheduleArray){
+
+        let allRows = ``;
+
+        for(let course of ScheduleArray) {
+
+            let rowTemplate =`
+        <tr>
+            <td>${course.courseAbbreviation}</td>
+            <td>${course.courseName}</td>
+            <td>${course.professorName}</td>
+        </tr>
+        `;
+            allRows += rowTemplate;
+        }
+
+        scheduleTableBody.innerHTML = allRows;
+
+    }
         
 
 //View open courses
@@ -207,10 +254,17 @@ function StudentDashboardComponent() {
             enrollButtonElement.addEventListener('click', enroll);
             withdrawButtonElement.addEventListener('click', withdraw);
 
-            // View courses elements
+            // View open courses elements
             openCourseTableBody = document.getElementById('courseopen-table-body');
             viewButtonElement = document.getElementById('v-pills-viewo-tab');
             viewButtonElement.addEventListener('click', getOpenCourses);
+            
+            // View schedule elements
+            scheduleTableBody = document.getElementById('schedule-table-body');
+            scheduleButtonElement = document.getElementById('v-pills-home-tab');
+            scheduleButtonElement.addEventListener('click', getSchedule());
+
+            
 
 
             window.history.pushState('student-dashboard', 'Student Dashboard', '/student-dashboard');
