@@ -13,7 +13,7 @@
 
 .tab-pane {
     width: 70rem;
-    height: 45rem;
+    height: 50rem;
     padding: 0.5rem;
     border: 1em solid #CECDCF;
     border-radius:2em;
@@ -48,6 +48,10 @@
     color: #4A1266!important;
     background-color: #FFD93D!important;
     border-color: #4A1266!important;
+}
+
+h1 {
+    text-align: center;
 }
 
 h2 {
