@@ -109,7 +109,6 @@ function FacultyDashboardComponent() {
         })
             .then(resp => {
                 status = resp.status;
-                
                 return resp.json();
             })
             .then(payload => {
@@ -300,7 +299,6 @@ function FacultyDashboardComponent() {
         })
             .then(resp => {
                 status = resp.status;
-                console.log(resp);
                 return resp.json();
             })
             .then(payload => {
@@ -377,7 +375,6 @@ function FacultyDashboardComponent() {
         })
             .then(resp => {
                 status = resp.status;
-                console.log(status);
                 return resp.json();
             })
             .then(payload => {
@@ -472,8 +469,6 @@ function FacultyDashboardComponent() {
 
             removeErrorMessageElement = document.getElementById('remove-error-msg');
             removeSuccessMessageElement = document.getElementById('remove-success-msg');
-
-
 
             window.history.pushState('faculty-dashboard', 'Faculty Dashboard', '/faculty-dashboard');
 
